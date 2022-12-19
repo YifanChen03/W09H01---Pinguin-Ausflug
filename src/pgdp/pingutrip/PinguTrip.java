@@ -63,9 +63,9 @@ final public class PinguTrip {
 
     public static void main(String[] args) {
         List<WayPoint> wayPoints = readWayPoints("test_paths/path.txt").toList();
-        // List.of(new WayPoint(4.0, 11.5), new WayPoint(19.1, 3.2));
+         List.of(new WayPoint(4.0, 11.5), new WayPoint(19.1, 3.2));
 
-        List<OneWay> oneWays = transformToWays(wayPoints).toList();
+        /*List<OneWay> oneWays = transformToWays(wayPoints).toList();
         // List.of(new OneWay(new WayPoint(4.0, 11.5), new WayPoint(19.1, 3.2)));
 
         double length = pathLength(oneWays.stream());
@@ -84,7 +84,7 @@ final public class PinguTrip {
         // true
 
         String directions = prettyDirections(oneWays.stream());
-        // "25 Schritte Richtung 331 Grad."
+        // "25 Schritte Richtung 331 Grad."*/
     }
 
 }
