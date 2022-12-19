@@ -18,17 +18,9 @@ final public class PinguTrip {
     public static Stream<WayPoint> readWayPoints(String pathToWayPoints) {
         // TODO: Task 1
         try {
-            BufferedReader br = new BufferedReader(new FileReader("path.txt"));
-            String line = br.readLine();
-            List<String> lines = new ArrayList<>();
+            Stream<String> zeilen = Files.lines(Path.of("path.txt"));
+            zeilen.filter(s -> !s.contains("//"));
 
-            while (line != null) {
-                if (line.contains("---"))
-                    break;
-                if (!line.contains("//"))
-                    lines.add(line);
-            }
-            Stream<String> zeilen = lines.stream();
             Stream<WayPoint> wayPointStream = zeilen.map(s -> new WayPoint(
                     (double) Integer.valueOf(s.substring(0, s.indexOf(";") - 1)),
                     (double) Integer.valueOf(s.substring(s.indexOf(";", s.length())))));
