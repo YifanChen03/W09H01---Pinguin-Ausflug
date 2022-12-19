@@ -1,5 +1,12 @@
 package pgdp.pingutrip;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -10,7 +17,26 @@ final public class PinguTrip {
 
     public static Stream<WayPoint> readWayPoints(String pathToWayPoints) {
         // TODO: Task 1
-        return null;
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("path.txt"));
+            String line = br.readLine();
+            List<String> lines = new ArrayList<>();
+
+            while (line != null) {
+                if (line.contains("---"))
+                    break;
+                if (!line.contains("//"))
+                    lines.add(line);
+            }
+            Stream<String> zeilen = lines.stream();
+            Stream<WayPoint> wayPointStream = zeilen.map(s -> new WayPoint(
+                    (double) Integer.valueOf(s.substring(0, s.indexOf(";") - 1)),
+                    (double) Integer.valueOf(s.substring(s.indexOf(";", s.length())))));
+            return wayPointStream;
+        } catch (IOException e) {
+            Stream<WayPoint> emptyOut = Stream.of();
+            return emptyOut;
+        }
     }
 
     public static Stream<OneWay> transformToWays(List<WayPoint> wayPoints) {
