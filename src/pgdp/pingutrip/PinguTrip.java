@@ -20,6 +20,7 @@ final public class PinguTrip {
         try {
             Stream<String> zeilen = Files.lines(Path.of("path.txt"));
             zeilen.filter(s -> !s.contains("//"));
+            zeilen.takeWhile(s -> !s.contains("---"));
 
             Stream<WayPoint> wayPointStream = zeilen.map(s -> new WayPoint(
                     (double) Integer.valueOf(s.substring(0, s.indexOf(";") - 1)),
@@ -62,8 +63,8 @@ final public class PinguTrip {
     }
 
     public static void main(String[] args) {
-        List<WayPoint> wayPoints = readWayPoints("test_paths/path.txt").toList();
-         List.of(new WayPoint(4.0, 11.5), new WayPoint(19.1, 3.2));
+        //List<WayPoint> wayPoints = readWayPoints("test_paths/path.txt").toList();
+         //List.of(new WayPoint(4.0, 11.5), new WayPoint(19.1, 3.2));
 
         /*List<OneWay> oneWays = transformToWays(wayPoints).toList();
         // List.of(new OneWay(new WayPoint(4.0, 11.5), new WayPoint(19.1, 3.2)));
