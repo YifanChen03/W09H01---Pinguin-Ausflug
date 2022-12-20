@@ -18,7 +18,8 @@ final public class PinguTrip {
     public static Stream<WayPoint> readWayPoints(String pathToWayPoints) {
         // TODO: Task 1
         try {
-            Stream<String> zeilen = Files.lines(Path.of("path.txt"));
+            Stream<String> zeilen = Files.lines(Path.of(
+                    "/home/cyanfhine/IdeaProjects/pgdp2223w09h01-ge84zuz/test_paths/path.txt"));
             zeilen.filter(s -> !s.contains("//"));
             zeilen.takeWhile(s -> !s.contains("---"));
 
