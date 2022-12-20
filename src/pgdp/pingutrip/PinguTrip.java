@@ -50,7 +50,7 @@ final public class PinguTrip {
                 .map(way -> way.getLength())
                 .reduce(0.0, (acc, wl) -> acc + wl) / oneWays.size();
         return oneWays.stream()
-                .filter(way -> way.getLength() <= avg_length)
+                .takeWhile(way -> way.getLength() <= avg_length)
                 .collect(Collectors.toList());
     }
 
