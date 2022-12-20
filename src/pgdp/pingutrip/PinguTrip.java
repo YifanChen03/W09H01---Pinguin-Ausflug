@@ -28,8 +28,7 @@ final public class PinguTrip {
                     Double.parseDouble(s.substring(s.indexOf(";") + 1, s.length()))));
             return wayPointStream;
         } catch (IOException e) {
-            Stream<WayPoint> emptyOut = Stream.of();
-            return emptyOut;
+            return Stream.empty();
         }
     }
 
