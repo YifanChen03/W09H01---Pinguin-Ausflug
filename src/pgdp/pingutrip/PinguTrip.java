@@ -19,13 +19,13 @@ final public class PinguTrip {
         // TODO: Task 1
         try {
             Stream<String> zeilen = Files.lines(Path.of(
-                    "test_paths/path.txt"));
+                    "/root/test_paths/path.txt"));
             zeilen.filter(s -> !s.contains("//"));
             zeilen.takeWhile(s -> !s.contains("---"));
 
             Stream<WayPoint> wayPointStream = zeilen.map(s -> new WayPoint(
-                    (double) Integer.valueOf(s.substring(0, s.indexOf(";") - 1)),
-                    (double) Integer.valueOf(s.substring(s.indexOf(";", s.length())))));
+                    Double.parseDouble(s.substring(0, s.indexOf(";") - 1)),
+                    Double.parseDouble(s.substring(s.indexOf(";", s.length())))));
             return wayPointStream;
         } catch (IOException e) {
             Stream<WayPoint> emptyOut = Stream.of();
