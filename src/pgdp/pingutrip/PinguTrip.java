@@ -46,7 +46,12 @@ final public class PinguTrip {
 
     public static List<OneWay> kidFriendlyTrip(List<OneWay> oneWays) {
         // TODO: Task 4
-        return null;
+        double avg_length = oneWays.stream()
+                .map(way -> way.getLength())
+                .reduce(0.0, (acc, wl) -> acc + wl) / oneWays.size();
+        return oneWays.stream()
+                .filter(way -> way.getLength() <= avg_length)
+                .collect(Collectors.toList());
     }
 
     public static WayPoint furthestAwayFromHome(Stream<WayPoint> wayPoints, WayPoint home) {
@@ -69,14 +74,15 @@ final public class PinguTrip {
         //List.of(new WayPoint(4.0, 11.5), new WayPoint(19.1, 3.2));
 
         List<OneWay> oneWays = transformToWays(wayPoints).toList();
-        System.out.println(oneWays);
+        //System.out.println(oneWays);
         //List.of(new OneWay(new WayPoint(4.0, 11.5), new WayPoint(19.1, 3.2)));
 
         double length = pathLength(oneWays.stream());
-        System.out.println(length);
+        //System.out.println(length);
         // 17.230 ...
 
-        //List<OneWay> kidFriendly = kidFriendlyTrip(oneWays);
+        List<OneWay> kidFriendly = kidFriendlyTrip(oneWays);
+        System.out.println(kidFriendly);
         // List.of(new OneWay(new WayPoint(4.0, 11.5), new WayPoint(19.1, 3.2)));
 
         //WayPoint furthest = furthestAwayFromHome(wayPoints.stream(), wayPoints.get(0));
