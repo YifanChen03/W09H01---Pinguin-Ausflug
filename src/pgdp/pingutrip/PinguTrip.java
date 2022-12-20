@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 final public class PinguTrip {
@@ -19,15 +20,16 @@ final public class PinguTrip {
         // TODO: Task 1
         try {
             List<String> zeilen = Files.readAllLines(Path.of(pathToWayPoints));
-            zeilen.stream()
+            zeilen = zeilen.stream()
                     .filter(s -> !s.contains("//"))
-                    .takeWhile(s -> !s.contains("---"));
+                    .takeWhile(s -> !s.contains("---"))
+                    .collect(Collectors.toList());
 
             Stream<String> zeilenStream = zeilen.stream();
 
             Stream<WayPoint> wayPointStream = zeilenStream.map(s -> new WayPoint(
-                    Double.parseDouble(s.substring(0, s.indexOf(";") - 1)),
-                    Double.parseDouble(s.substring(s.indexOf(";", s.length())))));
+                    Double.parseDouble(s.substring(0, s.indexOf(";"))),
+                    Double.parseDouble(s.substring(s.indexOf(";") + 1, s.length()))));
             return wayPointStream;
         } catch (IOException e) {
             Stream<WayPoint> emptyOut = Stream.of();
