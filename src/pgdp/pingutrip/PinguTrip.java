@@ -19,7 +19,7 @@ final public class PinguTrip {
         // TODO: Task 1
         try {
             Stream<String> zeilen = Files.lines(Path.of(
-                    "/root/test_paths/path.txt"));
+                    "test_paths/path.txt"));
             zeilen.filter(s -> !s.contains("//"));
             zeilen.takeWhile(s -> !s.contains("---"));
 
