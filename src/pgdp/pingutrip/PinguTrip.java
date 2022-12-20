@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -56,7 +57,17 @@ final public class PinguTrip {
 
     public static WayPoint furthestAwayFromHome(Stream<WayPoint> wayPoints, WayPoint home) {
         // TODO: Task 5
-        return null;
+        List<WayPoint> wayPoints_save = wayPoints
+                .collect(Collectors.toList());
+        double maxlength = wayPoints_save.stream()
+                .map(wp -> wp.distanceTo(home))
+                .max(Double::compare)
+                .get();
+        List<WayPoint> out = wayPoints_save.stream()
+                .filter(wp -> wp.distanceTo(home) == maxlength)
+                .collect(Collectors.toList());
+
+        return out.get(0);
     }
 
     public static boolean onTheWay(Stream<OneWay> oneWays, WayPoint visit) {
@@ -82,10 +93,11 @@ final public class PinguTrip {
         // 17.230 ...
 
         List<OneWay> kidFriendly = kidFriendlyTrip(oneWays);
-        System.out.println(kidFriendly);
+        //System.out.println(kidFriendly);
         // List.of(new OneWay(new WayPoint(4.0, 11.5), new WayPoint(19.1, 3.2)));
 
-        //WayPoint furthest = furthestAwayFromHome(wayPoints.stream(), wayPoints.get(0));
+        WayPoint furthest = furthestAwayFromHome(wayPoints.stream(), wayPoints.get(0));
+        //System.out.println(furthest);
         // new WayPoint(19.1, 3.2);
 
         //boolean onTheWay = onTheWay(oneWays.stream(), new WayPoint(0.0, 0.0));
