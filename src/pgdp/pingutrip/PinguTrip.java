@@ -35,7 +35,7 @@ final public class PinguTrip {
 
     public static Stream<OneWay> transformToWays(List<WayPoint> wayPoints) {
         // TODO: Task 2
-        List<List<WayPoint>> two_waypoints = new ArrayList<>();
+        /*List<List<WayPoint>> two_waypoints = new ArrayList<>();
         for (int i = 0; i < wayPoints.size(); i++) {
             if (i % 2 != 0) {
                 two_waypoints.get(i).add(0, wayPoints.get(i));
@@ -45,8 +45,8 @@ final public class PinguTrip {
 
         Stream<OneWay> oneWayStream
                 = two_waypoints.stream()
-                .map(list -> new OneWay(list.get(0), list.get(1)));
-        return oneWayStream;
+                .map(list -> new OneWay(list.get(0), list.get(1)));*/
+        return Stream.empty();
     }
 
     public static double pathLength(Stream<OneWay> oneWays) {
