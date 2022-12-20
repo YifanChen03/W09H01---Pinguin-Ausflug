@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -23,8 +24,8 @@ final public class PinguTrip {
                     .filter(s -> !s.contains("//"))
                     .takeWhile(s -> !s.contains("---"));
 
-            Stream<WayPoint> wayPointStream = zeilenStream.map(s -> new WayPoint(
-                    Double.parseDouble(s.substring(0, s.indexOf(";"))),
+            Stream<WayPoint> wayPointStream = zeilenStream
+                    .map(s -> new WayPoint(Double.parseDouble(s.substring(0, s.indexOf(";"))),
                     Double.parseDouble(s.substring(s.indexOf(";") + 1, s.length()))));
             return wayPointStream;
         } catch (IOException e) {
@@ -34,7 +35,18 @@ final public class PinguTrip {
 
     public static Stream<OneWay> transformToWays(List<WayPoint> wayPoints) {
         // TODO: Task 2
-        return null;
+        List<List<WayPoint>> two_waypoints = new ArrayList<>();
+        for (int i = 0; i < wayPoints.size(); i++) {
+            if (i % 2 != 0) {
+                two_waypoints.get(i).add(0, wayPoints.get(i));
+                two_waypoints.get(i).add(1, wayPoints.get(i + 1));
+            }
+        }
+
+        Stream<OneWay> oneWayStream
+                = two_waypoints.stream()
+                .map(list -> new OneWay(list.get(0), list.get(1)));
+        return oneWayStream;
     }
 
     public static double pathLength(Stream<OneWay> oneWays) {
