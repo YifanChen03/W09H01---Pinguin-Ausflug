@@ -66,7 +66,6 @@ final public class PinguTrip {
         List<WayPoint> out = wayPoints_save.stream()
                 .filter(wp -> wp.distanceTo(home) == maxlength)
                 .collect(Collectors.toList());
-
         return out.get(0);
     }
 
