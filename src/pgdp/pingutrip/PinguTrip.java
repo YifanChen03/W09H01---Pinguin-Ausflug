@@ -59,6 +59,9 @@ final public class PinguTrip {
         // TODO: Task 5
         List<WayPoint> wayPoints_save = wayPoints
                 .collect(Collectors.toList());
+        if (wayPoints_save.size() == 0) {
+            return home;
+        }
         double maxlength = wayPoints_save.stream()
                 .map(wp -> wp.distanceTo(home))
                 .max(Double::compare)
@@ -96,7 +99,7 @@ final public class PinguTrip {
         // List.of(new OneWay(new WayPoint(4.0, 11.5), new WayPoint(19.1, 3.2)));
 
         WayPoint furthest = furthestAwayFromHome(wayPoints.stream(), wayPoints.get(0));
-        //System.out.println(furthest);
+        System.out.println(furthest);
         // new WayPoint(19.1, 3.2);
 
         //boolean onTheWay = onTheWay(oneWays.stream(), new WayPoint(0.0, 0.0));
