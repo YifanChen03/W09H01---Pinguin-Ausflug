@@ -21,14 +21,11 @@ final public class PinguTrip {
     public static Stream<WayPoint> readWayPoints(String pathToWayPoints) {
         // TODO: Task 1
         try {
-            Stream<String> zeilenStream = Files.lines(Path.of(pathToWayPoints))
+            return Files.lines(Path.of(pathToWayPoints))
                     .filter(s -> !s.contains("//"))
-                    .takeWhile(s -> !s.contains("---"));
-
-            Stream<WayPoint> wayPointStream = zeilenStream
+                    .takeWhile(s -> !s.contains("---"))
                     .map(s -> new WayPoint(Double.parseDouble(s.substring(0, s.indexOf(";"))),
-                    Double.parseDouble(s.substring(s.indexOf(";") + 1, s.length()))));
-            return wayPointStream;
+                            Double.parseDouble(s.substring(s.indexOf(";") + 1, s.length()))));
         } catch (IOException e) {
             return Stream.empty();
         }
@@ -36,10 +33,8 @@ final public class PinguTrip {
 
     public static Stream<OneWay> transformToWays(List<WayPoint> wayPoints) {
         // TODO: Task 2
-        Stream<OneWay> oneWayStream = IntStream.range(0, wayPoints.size() - 1)
+        return IntStream.range(0, wayPoints.size() - 1)
                 .mapToObj(in -> new OneWay(wayPoints.get(in), wayPoints.get(in + 1)));
-
-        return oneWayStream;
     }
 
     public static double pathLength(Stream<OneWay> oneWays) {
