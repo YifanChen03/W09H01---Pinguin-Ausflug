@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 final public class PinguTrip {
@@ -35,18 +36,10 @@ final public class PinguTrip {
 
     public static Stream<OneWay> transformToWays(List<WayPoint> wayPoints) {
         // TODO: Task 2
-        /*List<List<WayPoint>> two_waypoints = new ArrayList<>();
-        for (int i = 0; i < wayPoints.size(); i++) {
-            if (i % 2 != 0) {
-                two_waypoints.get(i).add(0, wayPoints.get(i));
-                two_waypoints.get(i).add(1, wayPoints.get(i + 1));
-            }
-        }
+        Stream<OneWay> oneWayStream = IntStream.range(0, wayPoints.size() - 1)
+                .mapToObj(in -> new OneWay(wayPoints.get(in), wayPoints.get(in + 1)));
 
-        Stream<OneWay> oneWayStream
-                = two_waypoints.stream()
-                .map(list -> new OneWay(list.get(0), list.get(1)));*/
-        return Stream.empty();
+        return oneWayStream;
     }
 
     public static double pathLength(Stream<OneWay> oneWays) {
@@ -80,8 +73,9 @@ final public class PinguTrip {
         List<WayPoint> wayPoints = readWayPoints("test_paths/path.txt").toList();
         //List.of(new WayPoint(4.0, 11.5), new WayPoint(19.1, 3.2));
 
-        //List<OneWay> oneWays = transformToWays(wayPoints).toList();
-        List<OneWay> oneWays = List.of(new OneWay(new WayPoint(4.0, 11.5), new WayPoint(19.1, 3.2)));
+        List<OneWay> oneWays = transformToWays(wayPoints).toList();
+        System.out.println(oneWays);
+        //List.of(new OneWay(new WayPoint(4.0, 11.5), new WayPoint(19.1, 3.2)));
 
         double length = pathLength(oneWays.stream());
         System.out.println(length);
