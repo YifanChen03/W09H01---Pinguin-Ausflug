@@ -57,19 +57,20 @@ final public class PinguTrip {
 
     public static WayPoint furthestAwayFromHome(Stream<WayPoint> wayPoints, WayPoint home) {
         // TODO: Task 5
-        List<WayPoint> wayPoints_save = wayPoints
-                .collect(Collectors.toList());
-        if (wayPoints_save.size() == 0) {
+        try {
+            List<WayPoint> wayPoints_save = wayPoints
+                    .collect(Collectors.toList());
+            double maxlength = wayPoints_save.stream()
+                    .map(wp -> wp.distanceTo(home))
+                    .max(Double::compare)
+                    .get();
+            List<WayPoint> out = wayPoints_save.stream()
+                    .filter(wp -> wp.distanceTo(home) == maxlength)
+                    .collect(Collectors.toList());
+            return out.get(0);
+        } catch (Exception e) {
             return home;
         }
-        double maxlength = wayPoints_save.stream()
-                .map(wp -> wp.distanceTo(home))
-                .max(Double::compare)
-                .get();
-        List<WayPoint> out = wayPoints_save.stream()
-                .filter(wp -> wp.distanceTo(home) == maxlength)
-                .collect(Collectors.toList());
-        return out.get(0);
     }
 
     public static boolean onTheWay(Stream<OneWay> oneWays, WayPoint visit) {
