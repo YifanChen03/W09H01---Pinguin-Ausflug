@@ -76,7 +76,7 @@ final public class PinguTrip {
     public static boolean onTheWay(Stream<OneWay> oneWays, WayPoint visit) {
         // TODO: Task 6
         return oneWays
-                .anyMatch(way -> way.equals(visit));
+                .anyMatch(way -> way.isOnPath(visit));
     }
 
     public static String prettyDirections(Stream<OneWay> oneWays) {
