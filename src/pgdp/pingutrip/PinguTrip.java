@@ -83,7 +83,7 @@ final public class PinguTrip {
         // TODO: Task 7
         return oneWays
                 .map(way -> way.prettyPrint())
-                .reduce("", (sb, s) -> sb + s + "\n");
+                .reduce("", String::concat);
     }
 
     public static void main(String[] args) {
