@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -48,8 +49,12 @@ final public class PinguTrip {
     public static List<OneWay> kidFriendlyTrip(List<OneWay> oneWays) {
         // TODO: Task 4
         double avg_length = oneWays.stream()
+                .mapToDouble(way -> way.getLength())
+                .average()
+                .getAsDouble();
+        /*double avg_length = oneWays.stream()
                 .map(way -> way.getLength())
-                .reduce(0.0, (acc, wl) -> acc + wl) / oneWays.size();
+                .reduce(0.0, (acc, wl) -> acc + wl) / oneWays.size();*/
         return oneWays.stream()
                 .takeWhile(way -> way.getLength() <= avg_length)
                 .collect(Collectors.toList());
@@ -83,7 +88,7 @@ final public class PinguTrip {
         // TODO: Task 7
         return oneWays
                 .map(way -> way.prettyPrint())
-                .reduce("", String::concat);
+                .reduce("", (sb, s) -> sb + s + "\n");
     }
 
     public static void main(String[] args) {
