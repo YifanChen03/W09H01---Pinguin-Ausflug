@@ -84,7 +84,8 @@ final public class PinguTrip {
         // TODO: Task 7
         return oneWays
                 .map(way -> way.prettyPrint())
-                .reduce("", (sb, s) -> sb + s + "\n");
+                .collect(Collectors.joining("\n"));
+                //.reduce("", (sb, s) -> sb + s + "\n");
     }
 
     public static void main(String[] args) {
@@ -100,7 +101,7 @@ final public class PinguTrip {
         // 17.230 ...
 
         List<OneWay> kidFriendly = kidFriendlyTrip(oneWays);
-        System.out.println(kidFriendly);
+        //System.out.println(kidFriendly);
         // List.of(new OneWay(new WayPoint(4.0, 11.5), new WayPoint(19.1, 3.2)));
 
         WayPoint furthest = furthestAwayFromHome(wayPoints.stream(), wayPoints.get(0));
