@@ -85,7 +85,6 @@ final public class PinguTrip {
         return oneWays
                 .map(way -> way.prettyPrint())
                 .collect(Collectors.joining("\n"));
-                //.reduce("", (sb, s) -> sb + s + "\n");
     }
 
     public static void main(String[] args) {
