@@ -81,7 +81,9 @@ final public class PinguTrip {
 
     public static String prettyDirections(Stream<OneWay> oneWays) {
         // TODO: Task 7
-        return "";
+        return oneWays
+                .map(way -> way.prettyPrint())
+                .reduce("", (sb, s) -> sb + s);
     }
 
     public static void main(String[] args) {
@@ -105,13 +107,14 @@ final public class PinguTrip {
         // new WayPoint(19.1, 3.2);
 
         boolean onTheWay = onTheWay(oneWays.stream(), new WayPoint(0.0, 0.0));
-        System.out.println(onTheWay);
+        //System.out.println(onTheWay);
         // false
 
         //onTheWay = onTheWay(oneWays.stream(), new WayPoint(19.1, 3.2));
         // true
 
-        //String directions = prettyDirections(oneWays.stream());
+        String directions = prettyDirections(oneWays.stream());
+        System.out.println(directions);
         // "25 Schritte Richtung 331 Grad."
     }
 
